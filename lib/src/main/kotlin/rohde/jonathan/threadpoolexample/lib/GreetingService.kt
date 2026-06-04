@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service
 import java.util.ServiceLoader
 
 @Service
-class GreetingService(private val greetingExecutor: ThreadPoolTaskExecutor) {
+class GreetingService(private val greetingExecutor: ThreadPoolTaskExecutor,
+                      private val greetingExecutorImprove: ThreadPoolTaskExecutor) {
 
     companion object : KLogging()
 
@@ -20,5 +21,9 @@ class GreetingService(private val greetingExecutor: ThreadPoolTaskExecutor) {
 
     fun logAsync(c: Char) {
         greetingExecutor.execute { logSync(c) }
+    }
+
+    fun logAsyncImproved(c: Char) {
+        greetingExecutorImprove.execute { logSync(c) }
     }
 }

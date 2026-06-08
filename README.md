@@ -35,7 +35,7 @@ The task itself explicitly sets the context classloader to the classloader of `J
 java -jar build/libs/app-spring-boot-406-0.0.1-SNAPSHOT.jar
 ```
 2. Call the `v2` endpoint
-3. Any consecutive calls to the `v1` endpoint are now also failing.
+3. Any consecutive calls to the `v1` endpoint may now failing as well, depending whether the same executor thread is called as in step 1.
 4. Calls to `v3` and `v4` are always successful
 
 Side note: The request response is always success, because the errors are happining async to the http request

@@ -9,7 +9,7 @@ import rohde.jonathan.threadpoolexample.lib.GreetingService
 
 @Service
 class GreetingServiceWithClassloaderOverride(
-    @param:Qualifier("decoratedThreadPool") private val greetingExecutor: ThreadPoolTaskExecutor
+    @param:Qualifier("riskyThreadPool") private val greetingExecutor: ThreadPoolTaskExecutor
 ) : GreetingService {
 
     companion object : KLogging()

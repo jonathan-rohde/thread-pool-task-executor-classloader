@@ -3,6 +3,7 @@ package rohde.jonathan.threadpoolexample.lib
 import mu.KLogging
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.core.task.TaskDecorator
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import java.util.concurrent.atomic.AtomicInteger
@@ -12,7 +13,8 @@ open class GreetingExecutorConfig {
 
     companion object : KLogging()
 
-    @Bean
+    @Bean("riskyThreadPool")
+    @Primary
     open fun greetingExecutor(): ThreadPoolTaskExecutor {
         val threadCount = AtomicInteger(0)
         return ThreadPoolTaskExecutor().apply {
@@ -27,7 +29,7 @@ open class GreetingExecutorConfig {
         }
     }
 
-    @Bean("greetingExecutorImprove")
+    @Bean("decoratedThreadPool")
     open fun greetingExecutorImprove(): ThreadPoolTaskExecutor {
         val threadCount = AtomicInteger(0)
         return ThreadPoolTaskExecutor().apply {
@@ -44,7 +46,7 @@ open class GreetingExecutorConfig {
     }
 }
 
-class Decorator: TaskDecorator {
+class Decorator : TaskDecorator {
     override fun decorate(runnable: Runnable): Runnable {
         val contextClassLoader = Thread.currentThread().getContextClassLoader()
         return Runnable {

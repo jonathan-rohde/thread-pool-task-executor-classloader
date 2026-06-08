@@ -12,7 +12,7 @@ class GreetingV3Controller(private val greetingService: GreetingService) {
     @GetMapping
     fun greet(@RequestParam(defaultValue = "World") name: String): List<Char> {
         val chars = name.toList()
-        chars.forEach { greetingService.logAsyncImproved(it) }
+        chars.forEach { greetingService.logAsyncWithSpecificClassloader(it) }
         return chars
     }
 }
